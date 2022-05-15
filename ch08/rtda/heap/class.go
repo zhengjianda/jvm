@@ -153,3 +153,17 @@ func (self *Class) ArrayClass() *Class {
 	arrayClassName := getArrayClassName(self.name) //得到对应的数组类名
 	return self.loader.LoadClass(arrayClassName)   //加载得到对应的类
 }
+
+// 根据字段名和描述符查找字段
+func (self *Class) getField(name, descriptor string, isStatic bool) *Field {
+	for c := self; c != nil; c = c.superClass {
+		for _, field := range c.fields {
+			if field.IsStatic() == isStatic &&
+				field.name == name &&
+				field.descriptor == descriptor {
+				return field
+			}
+		}
+	}
+	return nil
+}
