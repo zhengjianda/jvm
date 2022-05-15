@@ -1,0 +1,80 @@
+package control
+
+import (
+	"jvmgo/ch08/instructions/base"
+	"jvmgo/ch08/rtda"
+)
+
+//RETURN Return void from method
+type RETURN struct {
+	base.NoOperandsInstruction
+}
+
+func (self *RETURN) Execute(frame *rtda.Frame) {
+	frame.Thread().PopFrame() //将当前帧(也就是方法帧)从Java虚拟机栈中弹出即可
+}
+
+//ARETURN Return reference from method
+type ARETURN struct {
+	base.NoOperandsInstruction
+}
+
+func (self *ARETURN) Execute(frame *rtda.Frame) {
+	thread := frame.Thread()
+	currentFrame := thread.PopFrame()
+	invokerFrame := thread.TopFrame()
+	ref := currentFrame.OperandStack().PopRef()
+	invokerFrame.OperandStack().PushRef(ref)
+}
+
+//DRETURN Return double from method
+type DRETURN struct {
+	base.NoOperandsInstruction
+}
+
+func (self *DRETURN) Execute(frame *rtda.Frame) {
+	thread := frame.Thread()
+	currentFrame := thread.PopFrame()
+	invokerFrame := thread.TopFrame()
+	val := currentFrame.OperandStack().PopDouble()
+	invokerFrame.OperandStack().PushDouble(val)
+}
+
+//FRETURN Return float from method
+type FRETURN struct {
+	base.NoOperandsInstruction
+}
+
+func (self *FRETURN) Execute(frame *rtda.Frame) {
+	thread := frame.Thread()
+	currentFrame := thread.PopFrame()
+	invokerFrame := thread.TopFrame()
+	val := currentFrame.OperandStack().PopFloat()
+	invokerFrame.OperandStack().PushFloat(val)
+}
+
+//IRETURN Return int from method
+type IRETURN struct {
+	base.NoOperandsInstruction
+}
+
+func (self *IRETURN) Execute(frame *rtda.Frame) {
+	thread := frame.Thread()
+	currentFrame := thread.PopFrame()
+	invokerFrame := thread.TopFrame()
+	val := currentFrame.OperandStack().PopInt()
+	invokerFrame.OperandStack().PushInt(val)
+}
+
+//LRETURN Return long from method
+type LRETURN struct {
+	base.NoOperandsInstruction
+}
+
+func (self *LRETURN) Execute(frame *rtda.Frame) {
+	thread := frame.Thread()
+	currentFrame := thread.PopFrame()
+	invokerFrame := thread.TopFrame()
+	val := currentFrame.OperandStack().PopLong()
+	invokerFrame.OperandStack().PushLong(val)
+}
