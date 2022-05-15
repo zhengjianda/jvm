@@ -30,3 +30,16 @@ func (self *Object) Class() *Class {
 func (self *Object) Fields() Slots {
 	return self.data.(Slots)
 }
+
+// SetRefVar 给对象的引用类型实例变量赋值
+func (self *Object) SetRefVar(name, descriptor string, ref *Object) {
+	field := self.class.getField(name, descriptor, false) //查找字段
+	slots := self.data.(Slots)                            //对象的实例变量数组
+	slots.SetRef(field.slotId, ref)                       //对应的引用类型实例变量赋值
+}
+
+func (self *Object) GetRefVar(name, descriptor string) *Object {
+	field := self.class.getField(name, descriptor, false)
+	slots := self.data.(Slots)
+	return slots.GetRef(field.slotId)
+}
