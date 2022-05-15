@@ -27,7 +27,7 @@ func startJVM(cmd *Cmd) {
 	mainMethod := mainClass.GetMainMethod() //获得Main方法
 
 	if mainMethod != nil {
-		interpret(mainMethod, cmd.verboseInstFlag) //让解释器执行方法
+		interpret(mainMethod, cmd.verboseInstFlag, cmd.args) //让解释器执行方法
 	} else {
 		fmt.Printf("Main method not found in class %s\n", cmd.class)
 	}
