@@ -25,9 +25,7 @@ func (self *ISTORE_1) Execute(frame *rtda.Frame) {
 type ISTORE_2 struct{ base.NoOperandsInstruction }
 
 func (self *ISTORE_2) Execute(frame *rtda.Frame) {
-	println("ISTORE_2内部")
 	_istore(frame, 2)
-	println("IStore_2方法结束")
 }
 
 type ISTORE_3 struct{ base.NoOperandsInstruction }
