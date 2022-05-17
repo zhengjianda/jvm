@@ -10,8 +10,8 @@ type NativeMethod func(frame *rtda.Frame)
 //key为string，value为NativeMethod()本地方法
 var registry = map[string]NativeMethod{}
 
-func emptyNativeMethod(frame *rtda.Frame) {
-	frame.OperandStack()
+func emptyNativeMethod(
+	frame *rtda.Frame) {
 	// do nothing
 }
 
