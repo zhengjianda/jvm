@@ -21,6 +21,7 @@ type Class struct {
 	staticVars        Slots    //存放静态变量
 	initStarted       bool     //类是否已经初始化
 	jClass            *Object  //java.lang.Class实例，类也是对象
+	sourceFile        string
 }
 
 /*
@@ -35,7 +36,15 @@ func newClass(cf *classfile.ClassFile) *Class {
 	class.constantPool = newConstantPool(class, cf.ConstantPool())
 	class.fields = newFields(class, cf.Fields())
 	class.methods = newMethods(class, cf.Methods())
+	class.sourceFile = getSourceFile(cf)
 	return class
+}
+
+func getSourceFile(cf *classfile.ClassFile) string {
+	if sfAttr := cf.SourceFileAttribute(); sfAttr != nil {
+		return sfAttr.FileName()
+	}
+	return "Unknown" // todo
 }
 
 func (self *Class) isJlObject() bool {
@@ -207,4 +216,8 @@ func (self *Class) GetRefVar(fieldName, fieldDescriptor string) *Object {
 func (self *Class) SetRefVar(fieldName, fieldDescriptor string, ref *Object) {
 	field := self.getField(fieldName, fieldDescriptor, true)
 	self.staticVars.SetRef(field.slotId, ref)
+}
+
+func (self *Class) SourceFile() string {
+	return self.sourceFile
 }
