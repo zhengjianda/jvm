@@ -5,11 +5,13 @@ import (
 )
 
 type Method struct {
-	ClassMember         //首先继承ClassMember 获得基本信息access_flags class name descriptor
-	maxStack     uint   //操作数栈大小
-	maxLocals    uint   //局部变量表大小
-	code         []byte //方法中有字节码，所以需要新增字段
-	argSlotCount uint   //方法参数在局部变量表中占据的位置
+	ClassMember                    //首先继承ClassMember 获得基本信息access_flags class name descriptor
+	maxStack        uint           //操作数栈大小
+	maxLocals       uint           //局部变量表大小
+	code            []byte         //方法中有字节码，所以需要新增字段
+	argSlotCount    uint           //方法参数在局部变量表中占据的位置
+	exceptionTable  ExceptionTable //方法对应的异常处理表
+	lineNumberTable *classfile.LineNumberTableAttribute
 }
 
 func (self *Method) copyAttributes(cfMethod *classfile.MemberInfo) {
@@ -17,6 +19,8 @@ func (self *Method) copyAttributes(cfMethod *classfile.MemberInfo) {
 		self.maxStack = codeAttr.MaxStack()
 		self.maxLocals = codeAttr.MaxLocals()
 		self.code = codeAttr.Code()
+		self.lineNumberTable = codeAttr.LineNumberTableAttribute()
+		self.exceptionTable = newExceptionTable(codeAttr.ExceptionTable(), self.class.constantPool)
 	}
 }
 
@@ -74,6 +78,14 @@ func (self *Method) calcArgSlotCount(paramTypes []string) {
 	}
 }
 
+func (self *Method) FindExceptionHandler(exClass *Class, pc int) int {
+	handler := self.exceptionTable.findExceptionHandler(exClass, pc)
+	if handler != nil { //找到对应的handler项，返回它的handlerPc字段
+		return handler.handlerPc
+	}
+	return -1 //找不到，返回-1
+}
+
 func (self *Method) IsSynchronized() bool {
 	return 0 != self.accessFlags&ACC_SYNCHRONIZED
 }
@@ -105,4 +117,14 @@ func (self *Method) Code() []byte {
 }
 func (self *Method) ArgSlotCount() uint {
 	return self.argSlotCount
+}
+
+func (self *Method) GetLineNumber(pc int) int {
+	if self.IsNative() {
+		return -2
+	}
+	if self.lineNumberTable == nil {
+		return -1
+	}
+	return self.lineNumberTable.GetLineNumber(pc)
 }
