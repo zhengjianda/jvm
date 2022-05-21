@@ -31,7 +31,7 @@ javaw [-options] -jar jarfile [args]
 
 java命令常见选项及其用途如下
 
-![java_option](..\photo\java_option.png)
+![java_option](https://github.com/zhengjianda/jvm/blob/master/photo/java_option.png)
 
 ### 编写命令行工具
 
