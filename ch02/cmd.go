@@ -27,8 +27,8 @@ func parseCmd() *Cmd {
 	flag.Parse()                                               //通过以上方法定义好命令行flag参数后，需要通过调用flag.Parse()来对命令行参数进行解析
 	args := flag.Args()
 	if len(args) > 0 {
-		cmd.class = args[0]
-		cmd.args = args[1:]
+		cmd.class = args[0] //第一个参数为对应的class
+		cmd.args = args[1:] //后面的为主类main方法的参数
 	}
 	return cmd
 }
