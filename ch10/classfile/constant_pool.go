@@ -8,7 +8,7 @@ type ConstantPool []ConstantInfo
 
 func readConstantPool(reader *ClassReader) ConstantPool {
 	cpCount := int(reader.readUint16()) //常量数
-	cp := make([]ConstantInfo, cpCount) //常量切片
+	cp := make([]ConstantInfo, cpCount) //常量切片，表示常量池
 	for i := 1; i < cpCount; i++ {      //注意索引从1开始，0是无效索引
 		cp[i] = readConstantInfo(reader, cp)
 		switch cp[i].(type) {

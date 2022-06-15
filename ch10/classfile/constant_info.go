@@ -17,13 +17,14 @@ const (
 	CONSTANT_InvokeDynamic      = 18
 )
 
+// 抽象常量接口，各个具体的常量实现该接口
 type ConstantInfo interface {
 	readInfo(reader *ClassReader)
 }
 
 func readConstantInfo(reader *ClassReader, cp ConstantPool) ConstantInfo {
 	tag := reader.readUint8()
-	c := newConstantInfo(tag, cp)
+	c := newConstantInfo(tag, cp) //根据tag创建对应的具体常量
 	c.readInfo(reader)
 	return c
 }
