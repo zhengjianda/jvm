@@ -9,6 +9,10 @@ import (
 aconst_null指令把null引用推入操作数栈顶
 */
 
+/**
+iconst 当int取值-1~5时，JVM采用iconst指令将常量压入栈中
+*/
+
 type ACONST_NULL struct {
 	base.NoOperandsInstruction
 }

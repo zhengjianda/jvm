@@ -5,6 +5,10 @@ import (
 	"jvmgo/ch10/rtda"
 )
 
+/**
+ipush 当int取值为-128~127采用ipush指令压入栈中
+sipush 当int值取值范围为-32768~32767 采用sipush指令
+*/
 //从字节码中获取一个byte整数，拓展成int型后推入操作数栈顶
 
 type BIPUSH struct {
