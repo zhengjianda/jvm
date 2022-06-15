@@ -133,10 +133,9 @@ func (self *Class) NewObject() *Object {
 }
 
 func (self *Class) GetMainMethod() *Method {
-	return self.getStaticMethod("main", "([Ljava/lang/String;)V")
+	return self.GetStaticMethod("main", "([Ljava/lang/String;)V")
 }
-
-func (self *Class) getStaticMethod(name, descriptor string) *Method {
+func (self *Class) GetStaticMethod(name, descriptor string) *Method {
 	for _, method := range self.methods {
 		if method.IsStatic() &&
 			method.name == name &&
@@ -156,7 +155,7 @@ func (self *Class) StartInit() {
 }
 
 func (self *Class) GetClinitMethod() *Method {
-	return self.getStaticMethod("<clinit>", "()V")
+	return self.GetStaticMethod("<clinit>", "()V")
 }
 
 func (self *Class) ArrayClass() *Class {
