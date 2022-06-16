@@ -71,6 +71,6 @@ func (self *OperandStack) PushRef(ref *Object) {
 func (self *OperandStack) PopRef() *Object {
 	self.size--
 	ref := self.slots[self.size].ref
-	self.slots[self.size].ref = nil
+	self.slots[self.size].ref = nil //置为null，方便垃圾回收器回收
 	return ref
 }
