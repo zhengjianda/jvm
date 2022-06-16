@@ -9,6 +9,7 @@ import (
 	"jvmgo/ch05/rtda"
 )
 
+//int 左位移
 type ISHL struct {
 	base.NoOperandsInstruction //int 左位移
 }
@@ -22,8 +23,9 @@ func (self *ISHL) Execute(frame *rtda.Frame) {
 	stack.PushInt(result) //位移之后，把结果推入操作数栈
 }
 
+//int 算术右位移
 type ISHR struct {
-	base.NoOperandsInstruction //int 算术右位移
+	base.NoOperandsInstruction
 }
 
 func (self *ISHR) Execute(frame *rtda.Frame) {
@@ -35,6 +37,7 @@ func (self *ISHR) Execute(frame *rtda.Frame) {
 	stack.PushInt(result)
 }
 
+//int 逻辑右位移
 type IUSHR struct {
 	base.NoOperandsInstruction //int 逻辑右位移
 }
@@ -48,6 +51,7 @@ func (self *IUSHR) Execute(frame *rtda.Frame) {
 	stack.PushInt(result)
 }
 
+//long 左位移
 type LSHL struct {
 	base.NoOperandsInstruction //Long 左位移
 }
@@ -61,6 +65,7 @@ func (self *LSHL) Execute(frame *rtda.Frame) {
 	stack.PushLong(result)
 }
 
+//long 算术右位移
 type LSHR struct {
 	base.NoOperandsInstruction //long 算术右位移
 }
@@ -74,6 +79,7 @@ func (self *LSHR) Execute(frame *rtda.Frame) {
 	stack.PushLong(result)
 }
 
+//long 逻辑右位移
 type LUSHR struct {
 	base.NoOperandsInstruction //long 逻辑右位移
 }
