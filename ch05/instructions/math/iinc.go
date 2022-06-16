@@ -5,7 +5,7 @@ import (
 	"jvmgo/ch05/rtda"
 )
 
-//Increment local variable by constant
+//Increment local variable by constant，给局部变量表中的int变量增加常量值
 
 type IINC struct {
 	Index uint
