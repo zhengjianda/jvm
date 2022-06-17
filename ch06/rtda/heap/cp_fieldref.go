@@ -9,7 +9,6 @@ type FieldRef struct {
 
 //newFieldRef 创建 FieldRef也就是符号引用的实例
 func newFieldRef(cp *ConstantPool, refInfo *classfile.ConstantFieldrefInfo) *FieldRef {
-	//疑问：field字段如何关联上?
 	ref := &FieldRef{}
 	ref.cp = cp
 	ref.copyMemberRefInfo(&refInfo.ConstantMemberrefInfo) //基本信息的复制
