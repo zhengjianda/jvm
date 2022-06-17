@@ -22,7 +22,7 @@ func (self *PUT_STATIC) Execute(frame *rtda.Frame) {
 	field := fieldRef.ResolvedField()
 	class := field.Class()
 
-	//todo:init class
+	//todo:init class 给类静态变量赋值会触发类的初始化
 
 	if !field.IsStatic() {
 		panic("java.lang.IncompatibleClassChangeError")
