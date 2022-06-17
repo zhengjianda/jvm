@@ -5,6 +5,9 @@ import (
 	"jvmgo/ch06/rtda"
 )
 
+/**
+当int取值范围为-2147483648~2147483647时采用ldc指令
+*/
 type LDC struct {
 	base.Index8Instruction
 }
