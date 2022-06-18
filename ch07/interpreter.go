@@ -21,7 +21,7 @@ func interpret(method *heap.Method, logInst bool) {
 func loop(thread *rtda.Thread, logInst bool) {
 	reader := &base.BytecodeReader{}
 	for {
-		frame := thread.CurrentFrame()
+		frame := thread.CurrentFrame() //取出一个帧，相当于取出一个方法
 		pc := frame.NextPC()
 		thread.SetPC(pc)
 
